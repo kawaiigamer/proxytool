@@ -3,7 +3,7 @@ from proxylib import *
 from threading import Thread
 from aiosocksy.connector import ProxyConnector, ProxyClientRequest
 
-class UiData(): 
+class UiData: 
     
     def __init__(self):
         self.proxy_list = set()
@@ -72,7 +72,7 @@ class UiData():
         add_list = []
         proxies = json.loads(raw)
         for proxy in proxies:
-            add_list.append(Proxy(
+            add_list.append(                roxy(
                                                   proxy['host'],
                                                   int(proxy['port']), 
                                                   ProxyType[proxy['proxy_type']], 
@@ -82,10 +82,9 @@ class UiData():
                                                   proxy['source'],
                                                   proxy['login'],
                                                   proxy['password']                                                  
-                                                  ))
+                                                ))
         return self.add_new_list(add_list)
-        
-        
+                
         
 class UiThreading: 
     

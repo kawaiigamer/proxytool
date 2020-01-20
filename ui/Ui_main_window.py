@@ -320,10 +320,10 @@ class Ui_MainWindow(object):
         self.label_8.setGeometry(QtCore.QRect(180, 130, 47, 13))
         self.label_8.setObjectName("label_8")
         self.checking_url_edit = QtWidgets.QLineEdit(self.groupBox_3)
-        self.checking_url_edit.setGeometry(QtCore.QRect(120, 150, 141, 20))
+        self.checking_url_edit.setGeometry(QtCore.QRect(120, 150, 151, 20))
         self.checking_url_edit.setObjectName("checking_url_edit")
         self.checking_pattern_edit = QtWidgets.QLineEdit(self.groupBox_3)
-        self.checking_pattern_edit.setGeometry(QtCore.QRect(120, 200, 141, 20))
+        self.checking_pattern_edit.setGeometry(QtCore.QRect(120, 200, 151, 20))
         self.checking_pattern_edit.setObjectName("checking_pattern_edit")
         self.label_9 = QtWidgets.QLabel(self.groupBox_3)
         self.label_9.setGeometry(QtCore.QRect(170, 180, 47, 13))
@@ -331,10 +331,6 @@ class Ui_MainWindow(object):
         self.checkers_list = QtWidgets.QListWidget(self.groupBox_3)
         self.checkers_list.setGeometry(QtCore.QRect(280, 6, 91, 231))
         self.checkers_list.setObjectName("checkers_list")
-        self.default_checker_radiobutton = QtWidgets.QRadioButton(self.centralWidget)
-        self.default_checker_radiobutton.setGeometry(QtCore.QRect(680, 30, 61, 17))
-        self.default_checker_radiobutton.setChecked(True)
-        self.default_checker_radiobutton.setObjectName("default_checker_radiobutton")
         MainWindow.setCentralWidget(self.centralWidget)
 
         self.retranslateUi(MainWindow)
@@ -381,7 +377,6 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", "Threads"))
         self.label_8.setText(_translate("MainWindow", "Url"))
         self.label_9.setText(_translate("MainWindow", "Pattern"))
-        self.default_checker_radiobutton.setText(_translate("MainWindow", "Default"))
 
 
 if __name__ == "__main__":

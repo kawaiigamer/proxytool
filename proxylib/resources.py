@@ -35,8 +35,7 @@ class SpysMe(ProxyResouse):
             if level.value < min_anonymity_level.value\
                     or country not in result[2]\
                     or type not in types\
-					or len(proxys)>= max_count \
-					:
+                    or len(proxys)>= max_count:
                 continue
             proxy = Proxy(
                 result[0],

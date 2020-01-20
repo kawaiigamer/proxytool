@@ -38,8 +38,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.list_widget_init(self.resourses_list, [resource.description() for resource in self.resources])
         self.list_widget_init(self.checkers_list, [checker.description() for checker in self.checkers])
         self.update_ui()
-        self.console_writeln(self.version + ' started')      
-        
+        self.console_writeln(self.version + ' started')              
         
     def list_widget_init(self, list_widget, checkboxes):
         for checkbox in checkboxes:
@@ -104,8 +103,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         def wrapper(self):
             if method(self) is not False:
                 self.update_ui()
-        return wrapper
-        
+        return wrapper        
     
     @pyqtSlot(QtWidgets.QListWidgetItem)
     def on_checkers_list_itemChanged(self, item):
@@ -154,8 +152,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                      country = self.country_edit.text(), 
                                      timeout_s = self.timeout_spinbox.value()
                                      ) 
-                started_works += 1
-                
+                started_works += 1                
         if not started_works:
                 self.console_writeln("No sources selected", 'error')
         
@@ -236,14 +233,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         def on_end(result):
             self.ui_background_process_count -= 1
             self.console_writeln_signal.emit("Successfully checked", 'default')
-            self.update_ui_signal.emit()
-            
+            self.update_ui_signal.emit()            
 
         self.sync.async_http_works(on_start, on_end, check_list, threads , checking_class.check, 
                                 min_speed_s = self.checking_timeout_spinbox.value(),
                                 max_retries =  self.checking_retries_spinbox.value(),
                                 url_override =  self.checking_url_edit.text(),
                                 pattern_override = self.checking_pattern_edit.text()
-                            )
-    
+                            ) 
 

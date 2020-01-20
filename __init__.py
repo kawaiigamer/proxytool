@@ -7,9 +7,3 @@ if __name__ == "__main__":
     main = MainWindow()
     main.show()
     sys.exit(app.exec_())
-
-
-
-
-
-

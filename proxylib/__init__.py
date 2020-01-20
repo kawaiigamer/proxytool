@@ -95,7 +95,6 @@ class ProxyResouse(ABC):
              ) -> list:
         pass
 
-
 class ProxyChecker(ABC):
     @classmethod
     @abstractmethod
@@ -112,6 +111,5 @@ class ProxyChecker(ABC):
              url_override : str = "", 
              pattern_override: str = "", 
              ) -> None:
-        pass
-        
+        pass       
 
