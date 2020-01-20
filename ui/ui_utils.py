@@ -72,7 +72,7 @@ class UiData:
         add_list = []
         proxies = json.loads(raw)
         for proxy in proxies:
-            add_list.append(                roxy(
+            add_list.append(                Proxy(
                                                   proxy['host'],
                                                   int(proxy['port']), 
                                                   ProxyType[proxy['proxy_type']], 
