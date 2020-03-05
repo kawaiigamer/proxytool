@@ -1,5 +1,5 @@
 # proxytool
-pyqt5/asyncio test application for work with proxy lists
+pyqt5/asyncio simple application for work with proxy lists(parsing\checking)
 
 TLS/SSL-encrypted connections between the client and the proxy server are not supported yet. 
 
