@@ -7,7 +7,6 @@ from proxylib.types import ProxyChecker, ProxyStatus, Proxy
 
 
 class DefaultChecker(ProxyChecker):
-
     default_url = "https://www.google.com/"
     default_pattern = "google"
 
@@ -28,7 +27,7 @@ class DefaultChecker(ProxyChecker):
         url = url_override if len(url_override) > 3 else cls.default_url
         pattern = pattern_override if len(pattern_override) > 3 else cls.default_pattern
         now = datetime.now()
-        if not "checking_exceptions" in proxy.runtime_data:
+        if "checking_exceptions" not in proxy.runtime_data:
             proxy.runtime_data["checking_exceptions"] = list()
         while max_retries:
             try:

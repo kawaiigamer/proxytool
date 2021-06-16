@@ -12,7 +12,7 @@ from aiosocksy.connector import ProxyConnector, ProxyClientRequest
 from proxylib.types import ProxyStatus, Proxy, ProxyType, AnonymityLevel
 
 
-class ProxiesContainer:
+class ProxyContainer:
     proxy_pattern: re.Pattern = re.compile("(\d+.\d+.\d+.\d+):(\d+).?(\w?\w?\w?\w?\w?\w?)")
 
     def __init__(self):
@@ -49,27 +49,24 @@ class ProxiesContainer:
 
     def delete_all_with_status(self, status_list: List[int]) -> int:
         delete_list = self.get_all_with_status(status_list)
-        for d in delete_list:  # all!!
+        for d in delete_list:
             self.proxy_list.remove(d)
         return len(delete_list)
 
     def dump_all_with_status_json(self, status_list: List[int]) -> str:
-        output_string = ""
-        output_string += "["
+        output_string = "["
         for proxy in self.get_all_with_status(status_list):
-            raw_json = proxy.json()
-            del raw_json['runtime_data']
-            output_string += (json.dumps(raw_json))
-            output_string += (",")
+            proxy_dict = proxy.to_dict()
+            del proxy_dict['runtime_data']
+            output_string += json.dumps(proxy_dict)
+            output_string += ","
         output_string = output_string[:-1]
         output_string += "]"
         return output_string
 
     def dump_all_with_status_txt(self, status_list: List[int]) -> str:
-        output_string = ""
-        for proxy in self.get_all_with_status(status_list):
-            output_string += proxy.host + ":" + str(proxy.port) + " " + proxy.proxy_type.name + "\n"
-        return output_string
+        return "".join(["{0}:{1} {2}\n".format(proxy.host, proxy.port, proxy.proxy_type.name)
+                        for proxy in self.get_all_with_status(status_list)])
 
     def add_from_txt(self, raw: str, on_missing_type: Callable[[], ProxyType]) -> int:
         add_list = []
@@ -79,7 +76,7 @@ class ProxiesContainer:
             try:
                 this_type = ProxyType[result[2]]
             except KeyError:
-                if default_type is None:
+                if not default_type:
                     default_type = on_missing_type()
                 this_type = default_type
             add_list.append(Proxy(result[0], int(result[1]), this_type))

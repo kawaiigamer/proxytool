@@ -7,7 +7,6 @@ from proxylib.types import ProxyType, AnonymityLevel, Proxy, ProxyResouse
 
 
 class SpysMe(ProxyResouse):
-
     url = "http://spys.me/proxy.txt"
     proxy_pattern: re.Pattern = re.compile("(\d+.\d+.\d+.\d+):(\d+) (\w?\w?)-?(\w?)-?(\w?)")
 
@@ -30,7 +29,7 @@ class SpysMe(ProxyResouse):
             text = await response.text()
         results = re.findall(cls.proxy_pattern, text)
         for result in results:
-            type = ProxyType.HTTPS if result[4] == 'S' else ProxyType.HTTP
+            type_ = ProxyType.HTTPS if result[4] == 'S' else ProxyType.HTTP
             level = AnonymityLevel.UNKNOWN
             if result[3] == 'H':
                 level = AnonymityLevel.HIGH
@@ -40,13 +39,13 @@ class SpysMe(ProxyResouse):
                 level = AnonymityLevel.NONE
             if level.value < min_anonymity_level.value \
                     or country not in result[2] \
-                    or type not in types \
+                    or type_ not in types \
                     or len(proxies) >= max_count:
                 continue
             proxy = Proxy(
                 result[0],
                 int(result[1]),
-                type,
+                type_,
                 country=result[2],
                 anonymity=level,
                 source='spys.me'

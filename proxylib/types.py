@@ -1,7 +1,7 @@
 import aiohttp
 
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Dict
 from enum import Enum
 
 
@@ -52,20 +52,22 @@ class Proxy:
                  country: str = "",
                  source: str = "",
                  user: str = "",
-                 passw: str = "",
-                 runtime_data=None
+                 password: str = "",
+                 runtime_data: Dict = None
                  ):
         self.host = host
         self.port = port
         self.login = user
-        self.password = passw
+        self.password = password
         self.anonymity = anonymity
         self.proxy_type = proxy_type
         self.country = country
         self.source = source
         self.status = status
-        self.runtime_data = dict() if runtime_data is None else runtime_data
-        self.proxy_string = proxy_type.name.lower() + "://" + user + ":" + passw + "@" + host + ":" + str(port)
+        self.runtime_data = runtime_data or dict()
+        self.proxy_string = "{0}://{1}:{2}@{3}:{4}".format(
+            proxy_type.name.lower(), user, password, host, port
+        )
 
     def __eq__(self, other):
         return self.proxy_string == other.proxy_string
@@ -73,15 +75,15 @@ class Proxy:
     def __hash__(self):
         return hash(self.proxy_string)
 
-    def json(self):
-        json_string = {}
+    def to_dict(self) -> Dict[str, str]:
+        dict_ = {}
         for key in self.__slots__:
             this = getattr(self, key, None)
             if isinstance(this, Enum):
-                json_string[key] = this.name
+                dict_[key] = this.name
             else:
-                json_string[key] = str(this)
-        return json_string
+                dict_[key] = str(this)
+        return dict_
 
 
 class ProxyResouse(ABC):
